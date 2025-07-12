@@ -1,36 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useLyricsStore } from "@/store/lyricsStore";
+import SearchBar from "@/components/SearchBar";
+import LyricsDisplay from "@/components/LyricsDisplay";
+import RecentList from "@/components/RecentList";
+import FavoriteList from "@/components/FavoriteList";
+import { Button } from "@/components/ui/button";
+import "./App.css";
+import {Toaster} from "@/components/ui/sonner.tsx";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+    const [searchParams] = useSearchParams();
+    const { theme, toggleTheme, setArtist, setTitle, fetchLyrics } = useLyricsStore();
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-        <p className={"text-3xl text-red-500 font-bold underline"}>Test</p>
-    </>
-  )
+    useEffect(() => {
+        document.documentElement.classList.toggle("dark", theme === "dark");
+    }, [theme]);
+
+    useEffect(() => {
+        const artist = searchParams.get("artist");
+        const title = searchParams.get("title");
+        if (artist && title) {
+            setArtist(artist);
+            setTitle(title);
+            fetchLyrics(artistName, songTitle);
+        }
+    }, [searchParams]);
+
+    return (
+        <main className="min-h-screen p-6 bg-white dark:bg-gray-900 text-black dark:text-white">
+            <div className="flex justify-between items-center mb-4">
+                <h1 className="text-3xl font-bold">🎶 Lyrics Finder</h1>
+                <Button variant="outline" onClick={toggleTheme}>
+                    Toggle Theme
+                </Button>
+            </div>
+            <SearchBar />
+            <LyricsDisplay />
+            <RecentList />
+            <FavoriteList />
+            <Toaster />
+        </main>
+    );
 }
-
-export default App
