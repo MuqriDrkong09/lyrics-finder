@@ -48,7 +48,7 @@ export default function LyricsDisplay() {
     return (
         <div className="mt-4 space-y-4">
             <div className="flex flex-wrap gap-2">
-                <Button onClick={addToFavorites}>❤️ Add to Favorites</Button>
+                <Button onClick={addToFavorites} variant={"outline"}>❤️ Add to Favorites</Button>
                 <Button variant="outline" onClick={copyToClipboard}>🔗 Copy Link</Button>
                 <a href={tweetURL} target="_blank" rel="noopener noreferrer">
                     <Button variant="secondary">🐦 Tweet</Button>

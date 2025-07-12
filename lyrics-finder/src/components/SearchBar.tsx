@@ -60,6 +60,7 @@ export default function SearchBar() {
                     }
                 }}
                 className="w-full"
+                variant={"outline"}
             >
                 Search
             </Button>

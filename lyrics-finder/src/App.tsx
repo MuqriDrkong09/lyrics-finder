@@ -23,7 +23,7 @@ export default function App() {
         if (artist && title) {
             setArtist(artist);
             setTitle(title);
-            fetchLyrics(artistName, songTitle);
+            fetchLyrics(artist, title);
         }
     }, [searchParams]);
 
