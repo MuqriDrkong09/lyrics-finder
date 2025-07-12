@@ -11,7 +11,7 @@ import {Toaster} from "@/components/ui/sonner.tsx";
 
 export default function App() {
     const [searchParams] = useSearchParams();
-    const { theme, toggleTheme, setArtist, setTitle, fetchLyrics } = useLyricsStore();
+    const { theme, toggleTheme, setArtist, setTitle, fetchLyrics, resetLyrics } = useLyricsStore();
 
     useEffect(() => {
         document.documentElement.classList.toggle("dark", theme === "dark");
@@ -24,6 +24,8 @@ export default function App() {
             setArtist(artist);
             setTitle(title);
             fetchLyrics(artist, title);
+        } else {
+            resetLyrics();
         }
     }, [searchParams]);
 

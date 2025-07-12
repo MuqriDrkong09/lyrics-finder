@@ -29,7 +29,7 @@ export default function RecentList() {
                             onClick={() => {
                                 setArtist(item.artist);
                                 setTitle(item.title);
-                                fetchLyrics(artistName, songTitle);
+                                fetchLyrics(item.artist, item.title);
                             }}
                         >
                             {item.artist} - {item.title}

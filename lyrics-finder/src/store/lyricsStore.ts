@@ -25,6 +25,8 @@ type LyricsState = {
     addToFavorites: () => void;
     removeRecent: (index: number) => void;
     removeFavorite: (index: number) => void;
+    resetLyrics: () => void;
+    resetAll: () => void;
 };
 
 export const useLyricsStore = create<LyricsState>()(
@@ -93,6 +95,14 @@ export const useLyricsStore = create<LyricsState>()(
                 set((state) => ({
                     favorites: state.favorites.filter((_, i) => i !== index),
                 })),
+            resetLyrics: () => set({ lyrics: "", error: "" }),
+            resetAll: () => set({
+                artist: "",
+                title: "",
+                lyrics: "",
+                error: "",
+                loading: false,
+            })
         }),
         {
             name: 'lyrics-storage',

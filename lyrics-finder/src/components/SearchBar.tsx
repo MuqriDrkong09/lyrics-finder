@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useSuggestions } from "@/hooks/useSuggestions";
 
 export default function SearchBar() {
-    const { setArtist, setTitle, fetchLyrics } = useLyricsStore();
+    const { setArtist, setTitle, fetchLyrics, resetLyrics } = useLyricsStore();
     const [query, setQuery] = useState("");
     const [showSuggestions, setShowSuggestions] = useState(false);
     const suggestions = useSuggestions(query);
@@ -19,6 +19,14 @@ export default function SearchBar() {
 
         // ✅ fetch lyrics after updating artist/title
         fetchLyrics(artistName, songTitle); // pass directly
+    };
+
+    const handleResetSearch = () => {
+        setQuery("");
+        setShowSuggestions(false);
+        resetLyrics();
+        setArtist("");
+        setTitle("");
     };
 
     return (
@@ -63,6 +71,10 @@ export default function SearchBar() {
                 variant={"outline"}
             >
                 Search
+            </Button>
+
+            <Button onClick={handleResetSearch} variant="outline" className={"w-full"}>
+                Reset
             </Button>
         </div>
     );
